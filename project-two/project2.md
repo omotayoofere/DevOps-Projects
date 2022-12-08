@@ -55,7 +55,7 @@ With the Apache setup to serve content and MySQL setup for storing and managing 
 
 ### Steps
 
-1. `sudo apt install php libapache2-mod-php php-mysql` -- Instals **php-mysql**; a PhP module that allows PHP communicate with MySQL-based databases and **libapache2-mod-php** that enables Apache handle PHP files.
+1. `sudo apt install php-fpm php-mysql` -- Instals **php-mysql**; a PhP module that allows PHP communicate with MySQL-based databases and **php-fpm** -- *PHP fastCGI process manager*; tells Nginx to pass PHP requests to an external software for processing.
 
 2. `php -v` -- Confirms the version of php installed on machine by displaying console information shown below
 
