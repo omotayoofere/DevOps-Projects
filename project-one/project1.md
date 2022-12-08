@@ -1,4 +1,4 @@
-#  Implementation of LAMP (Linux-Apache-MySQL-PhP) webstack on AWS
+#  Implementation of LAMP (Linux-Apache-MySQL-PHP) webstack on AWS
 
 ## AWS account set up and provisioning Ubuntu Server
 
