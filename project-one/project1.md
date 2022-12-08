@@ -53,7 +53,7 @@ With the Apache server up and running, there is a need to set up a MySQL databas
 4. `sudo mysql_secure_installation` -- To set password policy for better database security.
 
 
-## Installing PhP
+## Installing PHP
 With the Apache setup to serve content and MySQL setup for storing and managing data. There is a need for PhP to process code and display dynamic content to the end user.
 
 ### Steps
@@ -62,7 +62,7 @@ With the Apache setup to serve content and MySQL setup for storing and managing 
 
 2. `php -v` -- Confirms the version of php installed on machine by displaying console information shown below
 
-    ![Verifying PhP installation](./images/verify-php-installation.png)
+    ![Verifying PHP installation](./images/verify-php-installation.png)
 
 
 ## Creating virtual host for website using Apache
@@ -94,7 +94,7 @@ Run `sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/lates
 To view content in browser, put in `http://<Public-IP-Address>:80` in address bar of your browser.
 
 
-## Enabling PhP on the website
+## Enabling PHP on the website
 By default, the Directory index settings sets *index.html* superior to *index.php*, to change this behavior and make *index.php* the homepage instead of *index.html*, I edited the */etc/apache2/mods-enabled/dir.conf* file and changed the list order of the DirectoryIndex.
 
 ### Steps
@@ -105,8 +105,8 @@ By default, the Directory index settings sets *index.html* superior to *index.ph
 
     ![Re-ordering apaches's directory index](./images/Changing-directory-index-of-apache.png)
 
-3. Testing the PhP website in thr browser shows
+3. Testing the PHP website in thr browser shows
 
-    ![Testing the content of the PhP website](./images/Testing-PhP-website.png)
+    ![Testing the content of the PHP website](./images/Testing-PhP-website.png)
 
 4. `sudo rm /var/www/projectlamp/index.php` -- Removing the *index.php* file due to sensitivity of information in there.
