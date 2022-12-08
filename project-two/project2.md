@@ -78,7 +78,7 @@ Here, we create a directory structure within */var/www* for our domain website, 
 
 3. `sudo nano /etc/nginx/sites-available/projectLEMP` -- Creates and open a new configuration file in Apache's *sites-available*
 
-    ![Create projectLEMP configuration file](./images/configuration-for-web-server.png)
+    ![Create projectLEMP configuration file](./images/Configuration-for-web-server.png)
 
 4. `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/` -- Activates configuration by linking to the config file from Nginx’s sites-enabled directory
 
