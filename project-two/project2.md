@@ -60,3 +60,26 @@ With the Apache setup to serve content and MySQL setup for storing and managing 
 2. `php -v` -- Confirms the version of php installed on machine by displaying console information shown below
 
     ![Verifying PHP installation](./images/verify-php-installation.png)
+
+
+
+## Configuring NGINX to use PHP processor
+Similar to Apache's virtual host, Nginx allows creation of server blocks to encapsulate configuration details and host more than one domain on a single server.
+
+Nginx has a server block by default that serves documents out of a directory at */var/www/html*. 
+
+Here, we create a directory structure within */var/www* for our domain website, leaving */var/www/html* in place as the default directory to be served if a client request does not match any other sites
+
+### Steps
+
+1. `sudo mkdir /var/www/projectLEMP` -- Creating a root web directory for our domain
+
+2. `sudo chown -R $USER:$USER /var/www/projectLEMP` -- Changes ownership of the directory created in **1** so that the current user assumes ownership
+
+3. `sudo nano /etc/nginx/sites-available/projectLEMP` -- Creates and open a new configuration file in Apache's *sites-available*
+
+    ![Create projectLEMP configuration file](./images/configuration-for-web-server.png)
+
+4. `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/` -- Activates configuration by linking to the config file from Nginx’s sites-enabled directory
+
+5. `sudo nginx -t` -- Checks for syntax errors in configuration file
