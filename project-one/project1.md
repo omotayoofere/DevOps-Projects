@@ -108,3 +108,5 @@ By default, the Directory index settings sets *index.html* superior to *index.ph
 3. Testing the PhP website in thr browser shows
 
     ![Testing the content of the PhP website](./images/Testing-PhP-website.png)
+
+4. `sudo rm /var/www/projectlamp/index.php` -- Removing the *index.php* file due to sensitivity of information in there.
