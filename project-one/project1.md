@@ -105,7 +105,7 @@ By default, the Directory index settings sets *index.html* superior to *index.ph
 
     ![Re-ordering apaches's directory index](./images/Changing-directory-index-of-apache.png)
 
-3. Testing the PHP website in thr browser shows
+3. Testing the PHP website in the browser shows
 
     ![Testing the content of the PHP website](./images/Testing-PhP-website.png)
 

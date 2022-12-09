@@ -83,3 +83,70 @@ Here, we create a directory structure within */var/www* for our domain website, 
 4. `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/` -- Activates configuration by linking to the config file from Nginx’s sites-enabled directory
 
 5. `sudo nginx -t` -- Checks for syntax errors in configuration file
+
+6. `sudo unlink /etc/nginx/sites-enabled/default` -- Disables the default Nginx host currently configured to listen on port 80
+
+7. `sudo systemctl reload nginx` -- Reloading Nginx server to apply changes
+
+8. The *projectLEMP* currently does not have content to render.
+Run `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html` to redirect message *HELLO LAMP from hostname - <hostname> with public IP <IP_Address>* to an index.html file created in **/var/www/projectLEMP/index.html**
+
+To view content in browser, put in `http://<Public-IP-Address>:80` in address bar of your browser.
+
+
+
+## Testing PHP with NGINX
+With the LEMP stack setup, there's a need to test if Nginx can correctly hand .php files to our processor.
+
+### Steps
+
+1. `sudo nano /var/www/projectLEMP/info.php` -- Creating and a editing test php file in document root 
+
+2. Testing the PHP website in the browser shows
+
+    ![Testing the content of the PHP website](./images/Testing-PhP-website.png)
+
+3. `sudo rm /var/www/projectLEMP/info.php` -- Removing the *info.php* file due to sensitivity of information in there.
+
+
+
+## Retrieving data from MySQL database with PHP
+Creating a test database with simple To-do-list and configuring to Nginx website query the DB and display it contents. 
+
+### Steps
+
+1. `sudo mysql -p` -- Connecting to MySQL console using the root acount
+
+2. `mysql> CREATE DATABASE `example_database`;` -- Creating a test database named *example_database*
+
+3. `mysql> CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';` -- Creates user named *example_user* using *mysql_native_password* as the default authentication method 
+
+4. `mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';` -- Granting all permissions to *example_user* on *example_database* 
+
+5. `mysql -u example_user -p` -- Testing if the new user can log in to the MySQL console
+
+6. `mysql> SHOW DATABASES;` -- Displays information about the database as seen below.
+
+    ![alt text](image.jpg)
+
+7. Creating a table named *todo_list* by running the following commands
+
+    ![alt text](image.jpg)
+
+8. Inserting few rows of content in the test table as shown below
+
+    ![alt text](image.jpg)
+
+9. `mysql> SELECT * FROM example_database.todo_list;` -- Confirming data was successfully saved to table as shown below.
+
+    ![alt text](image.jpg)
+
+10. Creating a PHP script that will connect to MySQL and query for database content. 
+
+    - `vi /var/www/projectLEMP/todo_list.php` -- Creating a new PHP file in your custom web root directory using an editor
+
+    - The following PHP script connects to the MySQL database, queries for the content of the todo_list table and displays the results in a list.
+
+        ![alt text](image.jpg)
+
+    - `http://<Public_domain_or_IP>/todo_list.php` -- Testing to access this page in a web browser
