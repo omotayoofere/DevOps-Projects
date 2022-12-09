@@ -127,15 +127,15 @@ Creating a test database with simple To-do-list and configuring to Nginx website
 
 6. `mysql> SHOW DATABASES;` -- Displays information about the database as seen below.
 
-    ![alt text](image.jpg)
+    ![Shows database contents](./images/shows-db-content.png)
 
 7. Creating a table named *todo_list* by running the following commands
 
-    ![alt text](image.jpg)
+    `CREATE TABLE example_database.todo_list (item_id INT AUTO_INCREMENT,content VARCHAR(255),content VARCHAR(255),PRIMARY KEY(item_id));`
 
 8. Inserting few rows of content in the test table as shown below
 
-    ![alt text](image.jpg)
+    ![Shows-content-of table](./image/table-content.png)
 
 9. `mysql> SELECT * FROM example_database.todo_list;` -- Confirming data was successfully saved to table as shown below.
 
@@ -147,6 +147,6 @@ Creating a test database with simple To-do-list and configuring to Nginx website
 
     - The following PHP script connects to the MySQL database, queries for the content of the todo_list table and displays the results in a list.
 
-        ![alt text](image.jpg)
+        ![Page content in browser](./images/shows-content-in-browser.png)
 
     - `http://<Public_domain_or_IP>/todo_list.php` -- Testing to access this page in a web browser
