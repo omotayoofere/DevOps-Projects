@@ -30,7 +30,8 @@
     - Check to see if installed Nginx is accessible on Ubuntu server
     - To do so, run `curl -s http://169.254.169.254/latest/meta-data/public-ipv4` to get the IP address of the device
     - Entering [Checking Apache HTTP server response to requests from the internet](http://<Public-IP-Address>:80) replacing <Public-IP-Address> with the IP address gotten from above step presents a webpage rendered with the information below.
-    - ![Verifying Nginx response to web requests](./images/verifying-nginx-running-web.png)
+
+    ![Verifying Nginx response to web requests](./images/verifying-nginx-running-web.png)
     
 
 ## Installing MySQL Database
