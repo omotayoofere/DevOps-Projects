@@ -135,11 +135,13 @@ Creating a test database with simple To-do-list and configuring to Nginx website
 
 8. Inserting few rows of content in the test table as shown below
 
-    ![Shows-content-of table](./image/table-content.png)
+    `INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
+    `INSERT INTO example_database.todo_list (content) VALUES ("My first important item");`
+    `INSERT INTO example_database.todo_list (content) VALUES ("My third important item");`
 
 9. `mysql> SELECT * FROM example_database.todo_list;` -- Confirming data was successfully saved to table as shown below.
 
-    ![alt text](image.jpg)
+    ![Shows-content-of table](./image/table-contents.png)
 
 10. Creating a PHP script that will connect to MySQL and query for database content. 
 
