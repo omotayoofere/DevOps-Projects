@@ -105,31 +105,31 @@ This procedure allows the creation of models to define the database schema -- bl
 
 ## Setting up the MongoDB database
 
-In this procedure I utlized mLab -- A platform that provides database as a service solution. [DBaaS](https://en.wikipedia.org/wiki/Cloud_database)
+In this procedure I utlized mLab -- A platform that provides database as a service solution [DBaaS](https://en.wikipedia.org/wiki/Cloud_database).
 
 ### Steps
 
 1. I signed up and created an account on [mLab](https://www.mongodb.com/atlas-signup-from-mlab)
 
-2. Created a database and allowed acces to the database from anywhere as shown below
+2. Created a database and allowed access to the database from anywhere as shown below
 
     ![Image](./images)
 
 3. Created a database user and retrieved a connection string to access the database as shown below
 
-    ![Image](./images)
+    ![Connection to the Database](./images/connecting-to-db.png)
 
 4. To effect the *process.env* declared to access environment variables in *index.js* file, I created a *.env* file in the **Todo** directory and added the connection string as shown below.
 
-    ![Image](./images)
+    ![Adding connection string](./images/adding-connection-string.png)
 
 5. Updating the index.js file to reflect the use of the environment variables in the newly created *.env* file as shown below
 
-    ![Image](./images)
+    ![Updating index.js file to reflect credential changes in the .env file](./images/updating-index.js-file.png)
 
 6. `node index.js` -- Testing the database connection 
 
-    ![Image](./images)
+    ![Testing database connection](./images/testing-db-connection.png)
 
 
 
@@ -184,3 +184,28 @@ The Todo application makes use of stateless and stateful components
 
 - `mkdir components && touch Input.js ListTodo.js Todo.js` -- Creating files for the components in the components directory.
 
+- I populated the *Input.js* file with the following code string as show below.
+
+    ![Populating the Input.js file](./images/updating-the-index-file.png)
+
+- `npm install axios` -- I installed [Axios](https://github.com/axios/axios) in the *client* directory - a Promise based HTTP client for the browser and node.js
+
+- I populated the *ListTodo.js* file with the following code string as show below.
+
+    ![Populating ListTodo](./images/populating-ListTodo.png)
+
+- Populating the *App.js* file with the following code string as show below.
+
+    ![Populating App.js](./images/populating-the-App.js-file.png)
+
+- Populating the *App.css* file with the following code string as show below.
+
+    ![Populating App.css](./images/populating-the-App.css-file.png)
+
+- Populating the *index.css* file with the following code string as show below.
+
+    ![Populating Index.css](./images/updating-the-index.css-file.png)
+
+- `npm run dev` -- Checking to see if all components are spinned up successfully
+
+    ![Checking to see if all services are running](./images/checking-to-see-if-all-services-are-spinning.png)
