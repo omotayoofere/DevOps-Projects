@@ -113,8 +113,6 @@ In this procedure I utlized mLab -- A platform that provides database as a servi
 
 2. Created a database and allowed access to the database from anywhere as shown below
 
-    ![Image](./images)
-
 3. Created a database user and retrieved a connection string to access the database as shown below
 
     ![Connection to the Database](./images/connecting-to-db.png)
@@ -141,13 +139,11 @@ In absence of a frontend UI to test the functionality of the backend, I installe
 
 1. I created a POST request to the API *http://<PublicIP-or-PublicDNS>:5000/api/todos* which sends a new task request to the To-Do list so the application could store it in the database. I ensured to set header key Content-Type as application/json as shown below
 
-    ![Image](./images)
-
-    ![Image](./images)
+    ![POST-request](./images/POST-request.PNG)
 
 2. I created a GET request to the API *http://<PublicIP-or-PublicDNS>:5000/api/todos* which retrieves all existing records from out To-do application. Backend requests these records from the database and sends it us back as a response to GET request) as shown below.
 
-    ![Image](./images)
+    ![GET-request](./images/GET-request.PNG)
 
 
 
