@@ -3,8 +3,8 @@
 ## Task -- Implement a Client-Server Architecture using MySQL Database Management System that comprises of 3 separate layers namely:
 
 - A Laptop or PC to serve as a client
-- An EC2 Linux Server as a web server (This is where you will install WordPress)
-- An EC2 Linux server as a database (DB) server
+- A CentOS EC2 Linux Server as a web server (This is where you will install WordPress)
+- An CentOS EC2 Linux server as a database (DB) server
 
 ### Steps
 
@@ -16,6 +16,28 @@
 
     ![Viewing partitions in EBS attached](./images/view-partitions-on--attached-EBS.png)
 
-3. Creating single partitions on each of the attached EBS volume using the **gdisk** command
+3. Creating single partitions on each of the attached EBS volume using the **gdisk** command. See partitions created below.
+
+    ![Viewing created partitions in EBS attached](./images/view-partitions-on--attached-EBS.png)
+
+4. Installing the logical volume package using `sudo yum install lvm2`
+
+5. Checking for available disk partitions using -- `lvmdiskscan`
+
+6. Uisng `pvcreate` to mark each of 3 EBS volumes attached as physical volumes (PVs) to be used by LVM
+
+7. Adding EBS volumes to same volume groups using the *vgcreate** command as in -- `sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`
+
+8. Verifying physical volume group has been created using `sudo pvs` as seen below
+
+    ![Viewing created physical volumes](./images/verifying-pvs.PNG)
+
+8. Verifying volume group has been created using `sudo vgs` as seen below
+
+    ![Viewing created partitions in EBS attached](./images/verifying-vg.PNG)
+
+9. Verifying logical volume group has been created using `sudo lvs` as seen below
+
+    ![Viewing created partitions in EBS attached](./images/)
 
 
