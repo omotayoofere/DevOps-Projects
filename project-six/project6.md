@@ -36,8 +36,59 @@
 
     ![Viewing created partitions in EBS attached](./images/verifying-vg.PNG)
 
-9. Verifying logical volume group has been created using `sudo lvs` as seen below
+9. Creating 2 logical volumes
+    - `sudo lvcreate -n apps-lv -L 14G webdata-vg` -- **apps-lv** to store data for the Website
+    - `sudo lvcreate -n logs-lv -L 14G webdata-vg` -- **logs-lv** store data for logs
 
-    ![Viewing created partitions in EBS attached](./images/)
+10. Verifying logical volume group has been created using `sudo lvs` as seen below
+
+    ![Viewing logical volumes created](./images/verify-lvs.PNG)
+
+11. Viewing the entire storage setup using -- `sudo vgdisplay -v #view complete setup - VG, PV, and LV`
+
+    ![Viewing storage setup](./images)
+
+12. Formatting the 2 logical volumes with [ext4](https://en.wikipedia.org/wiki/Ext4) filesystem
+    - `sudo mkfs -t ext4 /dev/webdata-vg/apps-lv` -- Formatting storage that stores data for the Website 
+    - `sudo mkfs -t ext4 /dev/webdata-vg/logs-lv` -- Formatting storage that stores data for logs
+
+13. Creating directories to store website files in */var/www/html* -- `sudo mkdir -p /var/www/html`
+
+14. Creating directories to store backup of log files in */home/recovery/logs* -- `sudo mkdir -p /home/recovery/logs`
+
+15. Mounting the */var/www/html* directory on the *aps-lv* logical volume using -- `sudo mount /dev/webdata-vg/apps-lv /var/www/html/`
+
+16. Backing up all the files in the log directory /var/log into log directory created in */home/recovery/logs* using the **rsync** command -- `sudo rsync -av /var/log/. /home/recovery/logs/`
+
+17. Mounting directory */var/log* on the *logs-lv* logical volume using -- `sudo mount /dev/webdata-vg/logs-lv /var/log`
+
+18. Restoring log files back into */var/log* directory using -- `sudo rsync -av /home/recovery/logs/. /var/log`
+
+
+## Ensuring the mount configuration stays persistent after device restart
+
+1. Registering the UUID of devices in the */etc/fstab* file by getting the UUID of devices using -- `sudo blkid` as shown below
+    ![Checking UUIDs of devices](./images/checking-UUID-of-lvs.png)
+
+2. Registering the UUIDs of devices in */etc/fstab* by running -- `sudo vi /etc/fstab`
+    ![Registering UUIDs in fstab file](./images/registering-UUID-in-fstab.PNG)
+
+3. Testing configuration by reloading daemon using -- 
+    `sudo mount -a`
+    `sudo systemctl daemon-reload`
+
+    ![Verifying setup](./images/verifying-setup.PNG)
+
+
+## Creating a new EC2 instance and performing above process as in Webserver
+
+- Created single patitions on EBS volumes attached to EC2 instance
+- Installed lvm2 package so as to be able to check for available partitions
+- Marked each attached EBS volume as physical volumes using the **pvcreate** command
+- Using the **vgcreate** command to add all physical volume to a volume group
+- 
+
+
+
 
 
