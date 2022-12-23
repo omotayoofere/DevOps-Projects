@@ -24,7 +24,11 @@
 
 5. Checking for available disk partitions using -- `lvmdiskscan`
 
-6. Uisng `pvcreate` to mark each of 3 EBS volumes attached as physical volumes (PVs) to be used by LVM
+6. Using `pvcreate` to mark each of 3 EBS volumes attached as physical volumes (PVs) to be used by LVM
+    - `sudo pvcreate /dev/xvdf1`
+    - `sudo pvcreate /dev/xvdg1`
+    - `sudo pvcreate /dev/xvdh1`
+
 
 7. Adding EBS volumes to same volume groups using the *vgcreate** command as in -- `sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`
 
@@ -77,6 +81,7 @@
     `sudo mount -a`
     `sudo systemctl daemon-reload`
 
+4. Verifying setup by runnign command -- `df -h`
     ![Verifying setup](./images/verifying-setup.PNG)
 
 
@@ -86,9 +91,65 @@
 - Installed lvm2 package so as to be able to check for available partitions
 - Marked each attached EBS volume as physical volumes using the **pvcreate** command
 - Using the **vgcreate** command to add all physical volume to a volume group
-- 
+- Creating 2 logical volumes with
+    * db-lv -- to store data for the database.
+    * logs-lv -- to store data for logs.
+- Verify entire setup using -- sudo lsblk
+    ![Verifying DB-Server setup](./images)
+- Formatting both logical volumes with ext4 filesystem using -- **mkfs.ext4** command
+- Creating *var/www/db* directory to store database files
+- Creating *home/recovery/logs* directory to store backupof log files
+- Mounting the *var/www/db* on db-lv logical volume
+- Backing up *var/log* on the */home/recovery/logs* directory using **rsync** command
+- Mounting *var/log* on logs-lv logical volume
+- Restoring log files back to the *var/log* directory using the **rsync** command
+- Updating the */etc/fstab* file with the UUIDs of the logical volumes to ensure persistence when the device restarts.
+- Testing configuration by reloading daemon using
+    `sudo mount -a`
+    `sudo systemctl daemon-reload`
+
+    ![Verifying setup](./images/verifying-setup.PNG)
 
 
+## Installing WordPress on EC2 Webserver
+
+1. Updating the package repository
+
+2. Installing wget, Apache and its dependencies
+    `sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json`
+
+3. Starting Apache
+    `sudo systemctl enable httpd`
+    `sudo systemctl start httpd`
+
+4. Installing PHP and its dependencies
+    `sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm`
+    `sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm`
+    `sudo yum module list php`
+    `sudo yum module reset php`
+    `sudo yum module enable php:remi-7.4`
+    `sudo yum install php php-opcache php-gd php-curl php-mysqlnd`
+    `sudo systemctl start php-fpm`
+    `sudo systemctl enable php-fpm`
+    `setsebool -P httpd_execmem 1`
+
+5. Restarting Apache -- `sudo systemctl restart httpd`
+
+6. Downloading WordPress and copying wprdpress to *var/www/html* by running the following commands
+    `mkdir wordpress`
+    `cd   wordpress`
+    `sudo wget http://wordpress.org/latest.tar.gz`
+    `sudo tar xzvf latest.tar.gz`
+    `sudo rm -rf latest.tar.gz`
+    `cp wordpress/wp-config-sample.php wordpress/wp-config.php`
+    `cp -R wordpress /var/www/html/`
+
+7. Configuring SELinux policies by running the following commands
+    `sudo chown -R apache:apache /var/www/html/wordpress`
+    `sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R`
+    `sudo setsebool -P httpd_can_network_connect=1`
+    `sudo setsebool -P httpd_can_network_connect_db 1`
 
 
+## Installing MySQL on EC2 DB Server
 
