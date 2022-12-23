@@ -78,8 +78,8 @@
     ![Registering UUIDs in fstab file](./images/registering-UUID-in-fstab.PNG)
 
 3. Testing configuration by reloading daemon using -- 
-    `sudo mount -a`
-    `sudo systemctl daemon-reload`
+    * `sudo mount -a`
+    * `sudo systemctl daemon-reload`
 
 4. Verifying setup by runnign command -- `df -h`
     ![Verifying setup](./images/verifying-setup.PNG)
@@ -119,36 +119,36 @@
     `sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json`
 
 3. Starting Apache
-    `sudo systemctl enable httpd`
-    `sudo systemctl start httpd`
+    * `sudo systemctl enable httpd`
+    * `sudo systemctl start httpd`
 
 4. Installing PHP and its dependencies
-    `sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm`
-    `sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm`
-    `sudo yum module list php`
-    `sudo yum module reset php`
-    `sudo yum module enable php:remi-7.4`
-    `sudo yum install php php-opcache php-gd php-curl php-mysqlnd`
-    `sudo systemctl start php-fpm`
-    `sudo systemctl enable php-fpm`
-    `setsebool -P httpd_execmem 1`
+    * `sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm`
+    * `sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm`
+    * `sudo yum module list php`
+    * `sudo yum module reset php`
+    * `sudo yum module enable php:remi-7.4`
+    * `sudo yum install php php-opcache php-gd php-curl php-mysqlnd`
+    * `sudo systemctl start php-fpm`
+    * `sudo systemctl enable php-fpm`
+    * `setsebool -P httpd_execmem 1`
 
 5. Restarting Apache -- `sudo systemctl restart httpd`
 
 6. Downloading WordPress and copying wprdpress to **var/www/html** by running the following commands
-    `mkdir wordpress`
-    `cd   wordpress`
-    `sudo wget http://wordpress.org/latest.tar.gz`
-    `sudo tar xzvf latest.tar.gz`
-    `sudo rm -rf latest.tar.gz`
-    `cp wordpress/wp-config-sample.php wordpress/wp-config.php`
-    `cp -R wordpress /var/www/html/`
+    * `mkdir wordpress`
+    * `cd   wordpress`
+    * `sudo wget http://wordpress.org/latest.tar.gz`
+    * `sudo tar xzvf latest.tar.gz`
+    * `sudo rm -rf latest.tar.gz`
+    * `cp wordpress/wp-config-sample.php wordpress/wp-config.php`
+    * `cp -R wordpress /var/www/html/`
 
 7. Configuring SELinux policies by running the following commands
-    `sudo chown -R apache:apache /var/www/html/wordpress`
-    `sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R`
-    `sudo setsebool -P httpd_can_network_connect=1`
-    `sudo setsebool -P httpd_can_network_connect_db 1`
+    * `sudo chown -R apache:apache /var/www/html/wordpress`
+    * `sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R`
+    * `sudo setsebool -P httpd_can_network_connect=1`
+    * `sudo setsebool -P httpd_can_network_connect_db 1`
 
 
 ## Installing MySQL on EC2 DB Server
