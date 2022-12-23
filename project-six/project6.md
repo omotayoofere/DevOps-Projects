@@ -48,9 +48,9 @@
 
     ![Viewing logical volumes created](./images/verify-lvs.PNG)
 
-11. Viewing the entire storage setup using -- `sudo vgdisplay -v #view complete setup - VG, PV, and LV`
+11. Viewing the entire storage setup using -- `sudo blkid`
 
-    ![Viewing storage setup](./images)
+    ![Viewing storage setup](./images/verify-lvs.PNG)
 
 12. Formatting the 2 logical volumes with [ext4](https://en.wikipedia.org/wiki/Ext4) filesystem
     - `sudo mkfs -t ext4 /dev/webdata-vg/apps-lv` -- Formatting storage that stores data for the Website 
@@ -97,13 +97,13 @@
 - Verify entire setup using -- sudo lsblk
     ![Verifying DB-Server setup](./images)
 - Formatting both logical volumes with ext4 filesystem using -- **mkfs.ext4** command
-- Creating *var/www/db* directory to store database files
-- Creating *home/recovery/logs* directory to store backupof log files
-- Mounting the *var/www/db* on db-lv logical volume
-- Backing up *var/log* on the */home/recovery/logs* directory using **rsync** command
-- Mounting *var/log* on logs-lv logical volume
-- Restoring log files back to the *var/log* directory using the **rsync** command
-- Updating the */etc/fstab* file with the UUIDs of the logical volumes to ensure persistence when the device restarts.
+- Creating **var/www/db** directory to store database files
+- Creating **home/recovery/logs** directory to store backupof log files
+- Mounting the **var/www/db** on db-lv logical volume
+- Backing up **var/log** on the **/home/recovery/logs** directory using **rsync** command
+- Mounting **var/log** on logs-lv logical volume
+- Restoring log files back to the **var/log** directory using the **rsync** command
+- Updating the **/etc/fstab** file with the UUIDs of the logical volumes to ensure persistence when the device restarts.
 - Testing configuration by reloading daemon using
     `sudo mount -a`
     `sudo systemctl daemon-reload`
@@ -135,7 +135,7 @@
 
 5. Restarting Apache -- `sudo systemctl restart httpd`
 
-6. Downloading WordPress and copying wprdpress to *var/www/html* by running the following commands
+6. Downloading WordPress and copying wprdpress to **var/www/html** by running the following commands
     `mkdir wordpress`
     `cd   wordpress`
     `sudo wget http://wordpress.org/latest.tar.gz`
@@ -152,4 +152,8 @@
 
 
 ## Installing MySQL on EC2 DB Server
-
+- Updating the package manager on EC2 DB server using -- `sudo yum update`
+- Installing mysql server using -- `sudo yum install mysql-server`
+- Verifying that service is running using -- `sudo systemctl status mysqld`
+- Configuring DB to work with wordpress and creating DB user as shown below
+    ![Setting up database](./images/database-setup.png)
