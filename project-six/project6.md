@@ -95,7 +95,7 @@
     * db-lv -- to store data for the database.
     * logs-lv -- to store data for logs.
 - Verify entire setup using -- sudo lsblk
-    ![Verifying DB-Server setup](./images)
+    ![Verifying DB-Server setup](./images/verifying-status-of-db-server.png)
 - Formatting both logical volumes with ext4 filesystem using -- **mkfs.ext4** command
 - Creating **var/www/db** directory to store database files
 - Creating **home/recovery/logs** directory to store backupof log files
