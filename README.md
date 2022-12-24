@@ -1,4 +1,7 @@
 # DevOps projects
+
+![Cover image](./project-images/cover-image.jpg)
+
 **Project 1** -- [The project implements the LAMP (Linux-Apache-MySQL-PhP) webstack on AWS](https://github.com/omotayoofere/DevOps-Projects/tree/main/project-one)
 
  **Project 2** -- [Implementation of LEMP (Linux-Nginx-MySQL-PHP) webstack on AWS](https://github.com/omotayoofere/DevOps-Projects/tree/main/project-two)
