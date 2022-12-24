@@ -4,7 +4,6 @@
 
 | Projects |
 | ---------------------- |
-
 | 1. [The project implements the LAMP (Linux-Apache-MySQL-PhP) webstack on AWS](https://github.com/omotayoofere/DevOps-Projects/tree/main/project-one/project1.md) |
 
 | 2. [Implementation of LEMP (Linux-Nginx-MySQL-PHP) webstack on AWS](https://github.com/omotayoofere/DevOps-Projects/tree/main/project-two/project2.md) |
