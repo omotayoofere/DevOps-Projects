@@ -1,6 +1,6 @@
 # DevOps projects
 
-![Cover image](./project-images/cover-image.jpg)
+![Cover image](./project-images/cloud-cloud.png)
 
 **Project 1** -- [The project implements the LAMP (Linux-Apache-MySQL-PhP) webstack on AWS](https://github.com/omotayoofere/DevOps-Projects/tree/main/project-one)
 
