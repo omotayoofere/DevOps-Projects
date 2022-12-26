@@ -6,7 +6,10 @@ This project introduces the concept of load balancer to the architecture and set
 The load balancer also brings the concept of **Horizontal scaling** which allows adapting to the current load by adding (scale out) or removing (scale in) Web servers.
 
 ## Project Architecture
-![Project Architecture](./images)
+![Project Architecture](./images/project-architecture.png)
+
+## Project Walk-through
+![Project Walk-through](./images/setup-walkthrough.png)
 
 ## Setup and Technologies
 The solution uses LAMP stack with remote databse and NFS servers and consists of components which includes:
