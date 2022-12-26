@@ -157,3 +157,14 @@
 - Verifying that service is running using -- `sudo systemctl status mysqld`
 - Configuring DB to work with wordpress and creating DB user as shown below
     ![Setting up database](./images/database-setup.png)
+
+## Configuring WordPress to connect to the remote database
+- Opening MySQL port 3306 on DB Server EC2, allowing access to the DB server ONLY from your Web Server’s IP address.
+    ![Opening port 3306 to Webserver](./images/opening-port-3306-to-webserver.png)
+
+- Installing MySQL client and testing connection from your Web Server to your DB server by using mysql-client
+    ![Signing-into database server remotely](./images/sign-in-to-db-server-remotely.png)
+
+    ![Showing databases in DB server remotely](./images/showing-databases-remotely.png)
+
+
