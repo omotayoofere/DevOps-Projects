@@ -167,4 +167,10 @@
 
     ![Showing databases in DB server remotely](./images/showing-databases-remotely.png)
 
+- Changing permissions and configuration so Apache could use WordPress
+    ![Registering credentials in DB Server](./images/editing-db-details.png)
 
+- Enabling TCP port 80 in Inbound Rules configuration for Web Server EC2 (enable from everywhere 0.0.0.0/0 or from your workstation’s IP)
+
+- Accessing link to WordPress **http://<Web-Server-Public-IP-Address>/wordpress/** from the browser
+    ![Accessing from browser](./images/webpage-output.png)
