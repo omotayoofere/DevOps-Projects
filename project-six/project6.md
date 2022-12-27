@@ -36,37 +36,37 @@
 
     ![Viewing created physical volumes](./images/verifying-pvs.PNG)
 
-8. Verifying volume group has been created using `sudo vgs` as seen below
+9. Verifying volume group has been created using `sudo vgs` as seen below
 
     ![Viewing created partitions in EBS attached](./images/verifying-vg.PNG)
 
-9. Creating 2 logical volumes
+10. Creating 2 logical volumes
     - `sudo lvcreate -n apps-lv -L 14G webdata-vg` -- **apps-lv** to store data for the Website
     - `sudo lvcreate -n logs-lv -L 14G webdata-vg` -- **logs-lv** store data for logs
 
-10. Verifying logical volume group has been created using `sudo lvs` as seen below
+11. Verifying logical volume group has been created using `sudo lvs` as seen below
 
     ![Viewing logical volumes created](./images/verify-lvs.PNG)
 
-11. Viewing the entire storage setup using -- `sudo blkid`
+12. Viewing the entire storage setup using -- `sudo blkid`
 
     ![Viewing storage setup](./images/verify-lvs.PNG)
 
-12. Formatting the 2 logical volumes with [ext4](https://en.wikipedia.org/wiki/Ext4) filesystem
+13. Formatting the 2 logical volumes with [ext4](https://en.wikipedia.org/wiki/Ext4) filesystem
     - `sudo mkfs -t ext4 /dev/webdata-vg/apps-lv` -- Formatting storage that stores data for the Website 
     - `sudo mkfs -t ext4 /dev/webdata-vg/logs-lv` -- Formatting storage that stores data for logs
 
-13. Creating directories to store website files in */var/www/html* -- `sudo mkdir -p /var/www/html`
+14. Creating directories to store website files in */var/www/html* -- `sudo mkdir -p /var/www/html`
 
-14. Creating directories to store backup of log files in */home/recovery/logs* -- `sudo mkdir -p /home/recovery/logs`
+15. Creating directories to store backup of log files in */home/recovery/logs* -- `sudo mkdir -p /home/recovery/logs`
 
-15. Mounting the */var/www/html* directory on the *aps-lv* logical volume using -- `sudo mount /dev/webdata-vg/apps-lv /var/www/html/`
+16. Mounting the */var/www/html* directory on the *aps-lv* logical volume using -- `sudo mount /dev/webdata-vg/apps-lv /var/www/html/`
 
-16. Backing up all the files in the log directory /var/log into log directory created in */home/recovery/logs* using the **rsync** command -- `sudo rsync -av /var/log/. /home/recovery/logs/`
+17. Backing up all the files in the log directory /var/log into log directory created in */home/recovery/logs* using the **rsync** command -- `sudo rsync -av /var/log/. /home/recovery/logs/`
 
-17. Mounting directory */var/log* on the *logs-lv* logical volume using -- `sudo mount /dev/webdata-vg/logs-lv /var/log`
+18. Mounting directory */var/log* on the *logs-lv* logical volume using -- `sudo mount /dev/webdata-vg/logs-lv /var/log`
 
-18. Restoring log files back into */var/log* directory using -- `sudo rsync -av /home/recovery/logs/. /var/log`
+19. Restoring log files back into */var/log* directory using -- `sudo rsync -av /home/recovery/logs/. /var/log`
 
 
 ## Ensuring the mount configuration stays persistent after device restart
@@ -81,7 +81,7 @@
     * `sudo mount -a`
     * `sudo systemctl daemon-reload`
 
-4. Verifying setup by runnign command -- `df -h`
+4. Verifying setup by running command -- `df -h`
     ![Verifying setup](./images/verifying-setup.PNG)
 
 

@@ -34,9 +34,11 @@ The solution uses LAMP stack with remote databse and NFS servers and consists of
     * **lv-apps** to be mounted on **/mnt/apps** to store data for the database.
     * **lv-logs** to be mounted on **/mnt/logs** to store data for logs.
     * **lv-opt** to be mounted on **/mnt/opt** to be later used by Jenkins server.
+    ![Logical Volumes created](./images/lvms-created.png)
 - Verify entire setup using -- sudo lsblk
-    ![Verifying DB-Server setup](./images)
-- Formatting the logical volumes with **xfs** filesystem using -- **mkfs.xfs** command
+    ![Verifying DB-Server setup](./images/storage-setup.PNG)
+- Formatting each of the 3 logical volumes with **xfs** filesystem using -- **mkfs.xfs** command
+    * `sudo mount /dev/webdata-vg/lv-apps /mnt/apps`
 - Install NFS server and configuring to ensure persistence (configure to start at boot time)
     * `sudo yum -y update`
     * `sudo yum install nfs-utils -y`
@@ -44,9 +46,11 @@ The solution uses LAMP stack with remote databse and NFS servers and consists of
     * `sudo systemctl enable nfs-server.service`
     * `sudo systemctl status nfs-server.service`
 
+    ![NFS service check](./images/status-of-nfs-service.PNG)
+
 - Exporting mounts for webservers’ subnet CIDR to connect as clients. That is, installing all three Web Servers inside the same subnet.
-    * Checking the EC2's subnet CIDR by opening the EC2 details in the AWS web console and locating the ‘Networking’ tab for the Subnet link as seen
-    ![Verifying DB-Server setup](./images)
+    * Checking the EC2's subnet CIDR by opening the EC2 details in the AWS web console and locating the **Networking** tab for the Subnet link as seen
+    ![Getting subnet-CIDR ](./images/getting-subnet-cidr.png)
 
     * Setting up permissions that allows Web servers to read, write and execute files on NFS
         * Changing ownership of webservers to nobody
@@ -63,13 +67,14 @@ The solution uses LAMP stack with remote databse and NFS servers and consists of
         `sudo systemctl restart nfs-server.service`
     
     * Configuring access to NFS server for clients within the same subnet as shown below:
-    ![Verifying DB-Server setup](./images)
+    ![Registering Mounted points in export file](./images/registering-exports-for-all-mounted-point.png)
 
     * Checking the port used by NFS and opening by adding new Inbound Rule in Security Groups
     `rpcinfo -p | grep nfs`
+    ![Checking ports used by NFS Server](./images/checking-ports-used-by-nfs.png)
 
-    * Opening ports TCP 111, UDP 111 and UDP 2049 in order for NFS server to be accessible from client as shown below:
-    ![Verifying DB-Server setup](./images) 
+    * Opening ports **TCP 111, UDP 111 and UDP 2049** in order for NFS server to be accessible from client as shown below:
+    ![Opening ports to allow NFS server to be accessible from client devices](./images/opening-ports-that-allows-nfs-accessible-from-clients.png) 
 
 
 ## Configuring the database server
