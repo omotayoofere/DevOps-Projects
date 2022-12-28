@@ -79,23 +79,24 @@ The solution uses LAMP stack with remote databse and NFS servers and consists of
 
 ## Configuring the database server
 
-1. Installing MySQL server on the EC2 instance -- `sudo yum install mysql-server`
+1. Installing MySQL server on the EC2 instance -- `sudo apt install mysql-server`
 
 2. To login into the MySQL console -- `sudo mysql`
 
-3. Creating a database **tooling** on the MySQL server as shown below 
-    ![Creating a database on MySQL server](./images)
+3. Creating a database **tooling** on the MySQL server 
 
 4. Creating database user named **webaccess** -- `create user 'webaccess'@'172.31.80.0/20' identified by 'password';`
 
 5. Granting permission to **webaccess** user on **tooling** database to do anything only from the webservers' subnet CIDR -- `grant all privileges on tooling.* to 'webaccess'@'172.31.80.0/20';`
+
+    ![Creating a database on MySQL server](./images/configure-db.png)
 
 
 ## Configuring the web servers
 
 This configuration ensures the Web Servers can serve the same content from shared storage solutions – NFS Server and MySQL database
 
-For storing shared files that our Web Servers will use – I utilized the NFS and mount previously created Logical Volume **lv-apps** to the folder where Apache stores files to be served to the users **(/var/www)**
+For storing shared files that our Web Servers will use – I utilized the NFS and mounted previously created Logical Volume **lv-apps** to the folder where Apache stores files to be served to the users **(/var/www)**
 
 * Launched a new EC2 instance with RHEL 8 Operating System
 * Installing the NFS client -- `sudo yum install nfs-utils nfs4-acl-tools -y`
@@ -103,11 +104,13 @@ For storing shared files that our Web Servers will use – I utilized the NFS an
     `sudo mkdir /var/www`
     `sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/www`
 
-* Verifying that the NFS was mounted successfully by running `df -h` 
+* Verifying that the NFS was mounted successfully by running `df -h` as shown below
+    ![Mounting NFS on Webserver](./images/mounting-nfs-on-webserver.png)
+
 * Ensuring that the changes persisted on Web Server after reboot by editing the **/etc/fstab** file as shown below
 
     `sudo vi /etc/fstab`
-    ![EC2 instance](./images)
+    ![Enabling persistence on webserver and NFS](./images/enabling-persistence-on-webserver-and-nfs.png)
 
 * Installing [Remi's repository](http://www.servermom.org/how-to-enable-remi-repo-on-centos-7-6-and-5/2790/), Apache and PHP
 
@@ -121,16 +124,24 @@ For storing shared files that our Web Servers will use – I utilized the NFS an
     * `sudo systemctl enable php-fpm`
     * `setsebool -P httpd_execmem 1`
 
-Repeating the steps above for 2 other EC2 instances
+Repeating the steps above for 2 other EC2 instances --> Setting up 2 new Webservers and performing steps 1-5 on the new webservers.
 
-- Verifying that Apache files and directories are available on the Web Server in **/var/www** and also on the NFS server in **/mnt/apps**. Seeing same files means NFS is mounted correctly. Created a new file **touch test.txt** from one server and check if the same file is accessible from other Web Servers.
+- Verifying that Apache files and directories available on the Web Server in **/var/www** are also on the NFS server in **/mnt/apps**. Seeing same files means NFS is mounted correctly. Created a new file **touch test.txt** from one server and check if the same file is accessible from other Web Servers.
 
-- Locating the log folder for Apache on the Web Server and mount it to NFS server’s export for log
-    * Ensure that the mount point persists after reboot.
+- Locating the **logs** folder for Apache on the Web Server and mount it to NFS server’s export for log
+    * Ensure that the mount point persists after reboot by registering `<NFS-Server-Private-IP-Address>:/mnt/apps /var/www nfs defaults 0 0` in the **etc/fstab**
+
+- Fork the tooling source code from Darey.io Github Account to your Github account.
+- Install git on server -- `sudo yum install git -y`
+- Begin by installing git on the webserver: `sudo yum install git -y`
+- Initialize Git: `git init`
+- Then run: `git clone https://github.com/darey-io/tooling.git`
+- Deploy the tooling website’s code to the Webserver. Ensure that the html folder from the repository is deployed to /var/www/html
+    ![Deploying Forked tooling repository to the Webserver](./images/regisering-forked-repo.png)
 
 - Open the TCP port 80 on the Web Server 
 
-- If Error 403 pops, check permissions to **/var/www/html** folder and disable SELinux by using command `sudo setenforce 0`
+- For Error 403 pops, check permissions to **/var/www/html** folder and disable SELinux by using command `sudo setenforce 0`
 
 - To make change permanent –- open config file `sudo vi /etc/sysconfig/selinux` 
     * Set SELINUX=disabled
@@ -145,3 +156,4 @@ Repeating the steps above for 2 other EC2 instances
 
 - Checking to see if website works by opening 
 **http://<Web-Server-Public-IP-Address-or-Public-DNS-Name>/index.php** in the browser and making sure user - **myuser** can login to the website.
+    ![Viewing web output](./images)
